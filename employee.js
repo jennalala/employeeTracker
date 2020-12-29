@@ -133,10 +133,10 @@ function addEmployee(){
               if (value === "") {
                   console.log("Enter Employee Name.");
                   return false;
-              },
+              }
               return true;
           },
-          {
+          
               name: "Role",
               type: "list",
               message: "Employee's role?",
@@ -145,5 +145,5 @@ function addEmployee(){
 
               }
           }
-    },
+      )},
     )}
