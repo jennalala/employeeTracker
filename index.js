@@ -9,7 +9,12 @@ const connection = mysql.createConnection({
   database: "employee_db",
 });
 
-//user prompt
+connection.connect((err) => {
+  if (err) throw err;
+  console.log("connected as id" + connection.threadId);
+  userOptions();
+});
+
 function userPrompt() {
     inquirer.prompt({
         name: "userAction",
