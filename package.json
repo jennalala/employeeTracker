@@ -1,8 +1,8 @@
 {
-  "name": "employeetracker",
+  "name": "employeeTracker",
   "version": "1.0.0",
-  "description": "",
-  "main": "employee.js",
+  "description": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/jennalala/employeeTracker.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/jennalala/employeeTracker#readme",
   "dependencies": {
+    "asciiart-logo": "^0.2.6",
+    "console.table": "^0.10.0",
+    "figlet": "^1.5.0",
     "inquirer": "^7.3.3",
     "mysql": "^2.18.1"
   }
