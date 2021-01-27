@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
-const cTable = require("console.table");
 const figlet = require("figlet");
 
 const connection = mysql.createConnection({
@@ -26,6 +25,7 @@ figlet("Employee Management System", (err, data) => {
   console.log(data);
 });
 
+// Function to prompt user what they would like to do
 function userOptions() {
   inquirer
     .prompt([
@@ -76,6 +76,7 @@ function userOptions() {
     });
 }
 
+// Function to add a new Department
 function addDept() {
   inquirer
     .prompt([
@@ -101,9 +102,11 @@ function addDept() {
     });
 }
 
+// Function to add a new role
 function addRole() {
   connection.query("SELECT * FROM department", (err, res) => {
     if (err) throw err;
+    // console.log(res);
     inquirer
       .prompt([
         {
@@ -139,6 +142,8 @@ function addRole() {
           },
           function (err, res) {
             if (err) throw err;
+            // const table = cTable.getTable(res);
+            // console.log(table);
             userOptions();
           }
         );
@@ -146,6 +151,7 @@ function addRole() {
   });
 }
 
+// Function to add a new employee
 function addEmployee() {
   let newEmployee = {};
   connection.query("SELECT * FROM role", (err, res) => {
@@ -177,6 +183,7 @@ function addEmployee() {
       .then((userInput) => {
         newEmployee.first_name = userInput.firstname;
         newEmployee.last_name = userInput.lastname;
+        // get the id from the role
         connection.query(
           "SELECT * FROM role WHERE title = ?",
           userInput.rolechoice,
@@ -184,6 +191,7 @@ function addEmployee() {
             if (err) throw err;
 
             newEmployee.role_id = res[0].id;
+            // get the manager name for this employee
             connection.query("SELECT * FROM employee", (err, res) => {
               if (err) throw err;
               inquirer
@@ -227,6 +235,7 @@ function addEmployee() {
   });
 }
 
+// Function to view all departments
 function viewAllDept() {
   connection.query("SELECT name as department FROM department", (err, res) => {
     if (err) throw err;
@@ -236,6 +245,7 @@ function viewAllDept() {
   });
 }
 
+// Function to view all roles
 function viewRoles() {
   connection.query("SELECT title FROM role", (err, res) => {
     if (err) throw err;
@@ -244,7 +254,7 @@ function viewRoles() {
     userOptions();
   });
 }
-
+//   Function to view all employees
 function viewEmployees() {
   connection.query(
     "SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee as e2 ON e2.id = employee.manager_id JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id",
@@ -257,6 +267,7 @@ function viewEmployees() {
   );
 }
 
+// Function to update en employee role
 function updateEmployeeRole() {
   let newRole = {};
 
@@ -301,6 +312,7 @@ function updateEmployeeRole() {
                 },
               ])
               .then(function (userInput) {
+                // Translate role to role_id
                 connection.query(
                   "SELECT * FROM role WHERE title = ?",
                   userInput.updateRole,
