@@ -24,7 +24,7 @@ This CLI application allows a user to create their team. The user is able to add
 
 ## ScreenShot
 
-![Screenshot](employeeTracker/Assets/employeeTracker.png)
+![Screenshot](./Assets/employeeTracker.png)
 
 
 ## Questions
